@@ -17,7 +17,7 @@ class CityListViewModel: ObservableObject {
     
     init() {
         do {
-            self.CityList = try loadCity()
+            self.cityList = try loadCity()
             print("파일 불러오기 완료!")
         } catch CSVParseError.notFound {
             print("파일을 찾을 수 없습니다.")
@@ -40,9 +40,9 @@ class CityListViewModel: ObservableObject {
             if let dataArr = encodedData?.components(separatedBy: "\n").map({ $0.trimmingCharacters(in: .newlines).components(separatedBy: ",") }) {
                 for arr in dataArr {
                     if cityList[arr[0]] == nil {    // 키 값이 존재하지 않으면
-                        cityList[arr[0]] = [City(Sigungu: arr[1], Lon: arr[2], Lat: arr[3])]
+                        cityList[arr[0]] = [City(sigungu: arr[1], lon: arr[2], lat: arr[3])]
                     } else {    // 이미 키 값이 존재하면
-                        cityList[arr[0]]?.append(City(Sigungu: arr[1], Lon: arr[2], Lat: arr[3]))
+                        cityList[arr[0]]?.append(City(sigungu: arr[1], lon: arr[2], lat: arr[3]))
                     }
                 }
             }
