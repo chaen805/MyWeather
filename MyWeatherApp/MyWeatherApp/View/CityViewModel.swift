@@ -13,7 +13,7 @@ enum CSVParseError: Error {
 }
 
 class CityListViewModel: ObservableObject {
-    @Published var CityList: [String: [City]] = [:]
+    @Published var cityList: [String: [City]] = [:]
     
     init() {
         do {

@@ -11,15 +11,15 @@ struct ContentView: View {
     @ObservedObject var viewModel = CityListViewModel()
     var body: some View {
         List {
-            ForEach(Array(viewModel.CityList.keys).sorted(), id: \.self) { key in
+            ForEach(Array(viewModel.cityList.keys).sorted(), id: \.self) { key in
                 Section {
-                    ForEach(viewModel.CityList[key] ?? [], id: \.self) { city in
+                    ForEach(viewModel.cityList[key] ?? [], id: \.self) { city in
                         HStack {
-                            Text(city.Sigungu)
+                            Text(city.sigungu)
                             
-                            Text(city.Lat)
+                            Text(city.lat)
                             
-                            Text(city.Lon)
+                            Text(city.lon)
                         }
                     }
                 } header: {

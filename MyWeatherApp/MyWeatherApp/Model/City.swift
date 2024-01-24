@@ -8,7 +8,7 @@
 import Foundation
 
 struct City: Hashable {
-    let Sigungu: String
-    let Lon: String
-    let Lat: String
+    let sigungu: String
+    let lon: String
+    let lat: String
 }
