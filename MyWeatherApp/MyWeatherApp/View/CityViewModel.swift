@@ -13,7 +13,7 @@ enum CSVParseError: Error {
 }
 
 class CityListViewModel: ObservableObject {
-    @Published var CityList: [City] = []
+    @Published var CityList: [String: [City]] = [:]
     
     init() {
         do {
@@ -28,8 +28,8 @@ class CityListViewModel: ObservableObject {
         }
     }
     
-    private func loadCity() throws -> [City] {
-        var cityList: [City] = []
+    private func loadCity() throws -> [String: [City]] {
+        var cityList: [String: [City]] = [:]
         
         do {
             guard let path = Bundle.main.path(forResource: "KoreaCity", ofType: "csv") else { throw CSVParseError.notFound }
@@ -38,7 +38,13 @@ class CityListViewModel: ObservableObject {
             let encodedData = String(data: data, encoding: .utf8)
             
             if let dataArr = encodedData?.components(separatedBy: "\n").map({ $0.trimmingCharacters(in: .newlines).components(separatedBy: ",") }) {
-                cityList = dataArr.compactMap{ City(Sido: $0[0], Sigungu: $0[1], Lon: $0[2], Lat: $0[3]) }
+                for arr in dataArr {
+                    if cityList[arr[0]] == nil {    // 키 값이 존재하지 않으면
+                        cityList[arr[0]] = [City(Sigungu: arr[1], Lon: arr[2], Lat: arr[3])]
+                    } else {    // 이미 키 값이 존재하면
+                        cityList[arr[0]]?.append(City(Sigungu: arr[1], Lon: arr[2], Lat: arr[3]))
+                    }
+                }
             }
         } catch {
             throw CSVParseError.invalidFile
