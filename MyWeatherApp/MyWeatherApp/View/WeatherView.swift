@@ -11,8 +11,6 @@ struct WeatherView: View {
     @StateObject var viewModel = WeatherViewModel()
     
     // MARK: - 임시 값
-    let sido = "경상남도"
-    let sigungu = "창원시 마산합포구"
     let iconName = "02n"
     let temp = "-8"
     let discription = "약간 흐림"
@@ -29,9 +27,9 @@ struct WeatherView: View {
                 
                 VStack {
                     Group {
-                        Text(sido)
+                        Text(viewModel.sido)
                         
-                        Text(sigungu)
+                        Text(viewModel.city.sigungu)
                     }
                     .font(.cityTitle)
                     
