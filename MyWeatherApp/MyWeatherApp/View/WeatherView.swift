@@ -16,6 +16,8 @@ struct WeatherView: View {
     let windSpeed = "10.3"
     let humidity = "23"
     
+    @State private var showLocationSheet = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -60,10 +62,21 @@ struct WeatherView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Image(systemName: "globe")
+                    Button {
+                        showLocationSheet = true
+                    } label: {
+                        Image(systemName: "globe")
+                    }
                 }
             }
             .foregroundStyle(.content)
+            .sheet(isPresented: $showLocationSheet) {
+                LocationView(showLocationSheet: $showLocationSheet)
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
+                    .presentationBackground(.ultraThinMaterial)
+                    .presentationCornerRadius(36)
+            }
         }
     }
 }
