@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = CityListViewModel()
+    @ObservedObject var viewModel = WeatherViewModel()
     var body: some View {
         List {
             ForEach(Array(viewModel.cityList.keys).sorted(), id: \.self) { key in

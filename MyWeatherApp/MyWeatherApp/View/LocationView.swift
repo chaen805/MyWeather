@@ -8,17 +8,7 @@
 import SwiftUI
 
 struct LocationView: View {
-    @ObservedObject var viewModel = CityListViewModel()
-    @Binding var showLocationSheet: Bool
-    @State private var sido: String
-    @State private var city: City
-    
-    init(viewModel: CityListViewModel = CityListViewModel(), showLocationSheet: Binding<Bool>) {
-        self.viewModel = viewModel
-        self._showLocationSheet = showLocationSheet
-        self.sido = "서울특별시"
-        self.city = viewModel.cityList["서울특별시"]![0]
-    }
+    @EnvironmentObject var viewModel: WeatherViewModel
 
     var body: some View {
         NavigationStack {
@@ -29,7 +19,7 @@ struct LocationView: View {
                         
                         Spacer()
                         
-                        Picker("", selection: $sido) {
+                        Picker("", selection: $viewModel.tempSido) {
                             ForEach(Array(viewModel.cityList.keys).sorted(), id: \.self) { key in
                                 Text(key)
                             }
@@ -37,17 +27,17 @@ struct LocationView: View {
                         .pickerStyle(.menu)
                     }
                     .listRowBackground(Color.clear)
-                    .onChange(of: sido) {
-                        city = viewModel.cityList[sido]![0]
+                    .onChange(of: viewModel.tempSido) { oldValue, newValue in
+                        viewModel.selectFirstCity(sido: newValue)
                     }
                     
                     HStack {
                         Text("시 / 군 / 구")
-                        
+                    
                         Spacer()
                         
-                        Picker("", selection: $city) {
-                            ForEach(viewModel.cityList[sido] ?? [], id: \.self) { city in
+                        Picker("", selection: $viewModel.tempCity) {
+                            ForEach(viewModel.cityList[viewModel.tempSido] ?? [], id: \.self) { city in
                                 Text(city.sigungu)
                             }
                         }
@@ -61,7 +51,7 @@ struct LocationView: View {
                 
                 Button {
                     // TODO: - 선택 위치 저장 및 api 호출
-                    showLocationSheet = false
+                    viewModel.saveLocation()
                 } label: {
                     Text("저장")
                         .font(.headline)
@@ -79,7 +69,7 @@ struct LocationView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        showLocationSheet = false
+                        viewModel.closeLocationSheet()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundStyle(.content)
@@ -91,5 +81,6 @@ struct LocationView: View {
 }
 
 #Preview {
-    LocationView(showLocationSheet: .constant(true))
+    LocationView()
+        .environmentObject(WeatherViewModel())
 }
