@@ -99,6 +99,7 @@
 		3001ACC92B5FD4AF00BEED09 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30EA81482B61311C00F4A5E0 /* WeatherView.swift */,
 				3001ACB92B5FBC3300BEED09 /* ContentView.swift */,
 				3001ACCA2B5FD5C000BEED09 /* CityViewModel.swift */,
 			);
@@ -184,6 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30EA81492B61311C00F4A5E0 /* WeatherView.swift in Sources */,
 				3001ACBA2B5FBC3300BEED09 /* ContentView.swift in Sources */,
 				30EA814B2B613D0F00F4A5E0 /* Font+Extension.swift in Sources */,
 				3001ACB82B5FBC3300BEED09 /* MyWeatherAppApp.swift in Sources */,
