@@ -16,6 +16,8 @@
 		30EA81492B61311C00F4A5E0 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA81482B61311C00F4A5E0 /* WeatherView.swift */; };
 		30EA814B2B613D0F00F4A5E0 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA814A2B613D0F00F4A5E0 /* Font+Extension.swift */; };
 		30EA814E2B61497000F4A5E0 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA814D2B61497000F4A5E0 /* LocationView.swift */; };
+		30EA81502B6215C000F4A5E0 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA814F2B6215C000F4A5E0 /* UserDefaultsKey.swift */; };
+		30EA81522B62198400F4A5E0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA81512B62198400F4A5E0 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		30EA81482B61311C00F4A5E0 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		30EA814A2B613D0F00F4A5E0 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		30EA814D2B61497000F4A5E0 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		30EA814F2B6215C000F4A5E0 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		30EA81512B62198400F4A5E0 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				3001ACB72B5FBC3300BEED09 /* MyWeatherAppApp.swift */,
+				30EA814F2B6215C000F4A5E0 /* UserDefaultsKey.swift */,
 				30EA814C2B613E1D00F4A5E0 /* Extension */,
 				3001ACC92B5FD4AF00BEED09 /* View */,
 				3001ACC82B5FBE4B00BEED09 /* Model */,
@@ -110,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				30EA814A2B613D0F00F4A5E0 /* Font+Extension.swift */,
+				30EA81512B62198400F4A5E0 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -185,9 +191,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30EA81522B62198400F4A5E0 /* String+Extension.swift in Sources */,
 				30EA81492B61311C00F4A5E0 /* WeatherView.swift in Sources */,
 				30EA814B2B613D0F00F4A5E0 /* Font+Extension.swift in Sources */,
 				3001ACB82B5FBC3300BEED09 /* MyWeatherAppApp.swift in Sources */,
+				30EA81502B6215C000F4A5E0 /* UserDefaultsKey.swift in Sources */,
 				30EA814E2B61497000F4A5E0 /* LocationView.swift in Sources */,
 				3001ACC72B5FBE4300BEED09 /* City.swift in Sources */,
 				3001ACCB2B5FD5C000BEED09 /* WeatherViewModel.swift in Sources */,

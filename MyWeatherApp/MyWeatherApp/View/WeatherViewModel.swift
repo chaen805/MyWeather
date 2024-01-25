@@ -13,10 +13,24 @@ enum CSVParseError: Error {
 }
 
 class WeatherViewModel: ObservableObject {
+    @AppStorage(UserDefaultsKey.isFirstRun.rawValue) private var isFirstRun = true
+    @AppStorage(UserDefaultsKey.sido.rawValue) private var storedSido: String = ""
+    @AppStorage(UserDefaultsKey.city.rawValue) private var storedCity: String = ""
+    
     @Published var cityList: [String: [City]] = [:]
     
-    @Published var sido: String = "서울특별시"
-    @Published var city = City(sigungu: "", lon: "", lat: "")
+    @Published var sido: String = "" {
+        didSet {
+            storedSido = sido
+            print("시도 저장")
+        }
+    }
+    @Published var city = City(sigungu: "", lon: "", lat: "") {
+        didSet {
+            storedCity = city.convertoToString()
+            print("시군구 저장")
+        }
+    }
     
     @Published var showLocationSheet: Bool = false
     @Published var tempSido: String = ""
@@ -26,13 +40,22 @@ class WeatherViewModel: ObservableObject {
         do {
             try loadCity()
             print("파일 불러오기 완료!")
-            self.city = cityList["서울특별시"]![0]
         } catch CSVParseError.notFound {
             print("파일을 찾을 수 없습니다.")
         } catch CSVParseError.invalidFile {
             print("잘못된 형식의 파일입니다.")
         } catch {
             print("알 수 없는 에러 발생!!")
+        }
+        
+        if isFirstRun {     // 첫 실행일 경우
+            sido = "서울특별시"
+            city = cityList["서울특별시"]![0]    // 강남구
+            
+            isFirstRun.toggle()
+        } else {
+            sido = storedSido
+            city = storedCity.convertToCity()
         }
     }
     
