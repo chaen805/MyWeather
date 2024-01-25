@@ -22,13 +22,11 @@ class WeatherViewModel: ObservableObject {
     @Published var sido: String = "" {
         didSet {
             storedSido = sido
-            print("시도 저장")
         }
     }
     @Published var city = City(sigungu: "", lon: "", lat: "") {
         didSet {
             storedCity = city.convertoToString()
-            print("시군구 저장")
         }
     }
     
