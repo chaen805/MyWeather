@@ -36,29 +36,55 @@ struct WeatherView: View {
                     Spacer()
                         .frame(maxHeight: 60)
                     
-                    Image(iconName)
-                        .resizable()
-                        .renderingMode(.template)
-                        .scaledToFit()
-                        .padding(.horizontal, 76)
-                    
-                    Text(temp + "º")
-                        .font(.temperature)
-                    
-                    Text(discription)
-                    
-                    Spacer()
-                        .frame(maxHeight: 40)
-                    
-                    HStack {
-                        AdditionalInformationView(type: .wind, value: "10.3")
+                    if let weather = viewModel.weatherInformation {
+                        Image(weather.weather[0].icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .padding(.horizontal, 76)
+                        
+                        Text("\(Int(weather.temp.temp - 273.15))℃")
+                            .font(.temperature)
+                        
+                        Text(weather.weather[0].description)
                         
                         Spacer()
+                            .frame(maxHeight: 40)
                         
-                        AdditionalInformationView(type: .humidity, value: "24.7")
+                        HStack {
+                            AdditionalInformationView(type: .wind, value: String(weather.wind.speed))
+                            
+                            Spacer()
+                            
+                            AdditionalInformationView(type: .humidity, value: String(weather.temp.humidity))
+                        }
+                        .padding(.horizontal, 60)
+                        .padding(.bottom, 36)
+                    } else {
+                        Image(systemName: "network.slash")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .padding(.horizontal, 76)
+                        
+                        Text("-")
+                            .font(.temperature)
+                        
+                        Text("네트워크 오류")
+                        
+                        Spacer()
+                            .frame(maxHeight: 40)
+                        
+                        HStack {
+                            AdditionalInformationView(type: .wind, value: "-")
+                            
+                            Spacer()
+                            
+                            AdditionalInformationView(type: .humidity, value: "-")
+                        }
+                        .padding(.horizontal, 60)
+                        .padding(.bottom, 36)
                     }
-                    .padding(.horizontal, 60)
-                    .padding(.bottom, 36)
                 }
             }
             .toolbar {

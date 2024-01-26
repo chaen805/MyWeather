@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 enum CSVParseError: Error {
     case notFound
@@ -29,10 +30,13 @@ class WeatherViewModel: ObservableObject {
             storedCity = city.convertoToString()
         }
     }
+    @Published var weatherInformation: WeatherInformation?
     
     @Published var showLocationSheet: Bool = false
     @Published var tempSido: String = ""
     @Published var tempCity = City(sigungu: "", lon: "", lat: "")
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         do {
@@ -55,6 +59,8 @@ class WeatherViewModel: ObservableObject {
         } catch {
             print("알 수 없는 에러 발생!!")
         }
+        
+        getWeatherData()
     }
     
     func openLocationSheet() {
@@ -72,6 +78,7 @@ class WeatherViewModel: ObservableObject {
         sido = tempSido
         city = tempCity
         
+        getWeatherData()
         closeLocationSheet()
     }
     
@@ -98,5 +105,21 @@ class WeatherViewModel: ObservableObject {
         } catch {
             throw CSVParseError.invalidFile
         }
+    }
+    
+    private func getWeatherData() {
+        WeatherNetwork(city: self.city).getWeatherInformation()
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: {[weak self] in
+                    guard case .failure(let error) = $0 else { return }
+                    print(error.localizedDescription)
+                    self?.weatherInformation = nil
+                },
+                receiveValue: {[weak self] weather in
+                    self?.weatherInformation = weather
+                }
+            )
+            .store(in: &cancellables)
     }
 }
