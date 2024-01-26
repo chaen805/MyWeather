@@ -8,15 +8,7 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @StateObject var viewModel = WeatherViewModel()
-    
-    // MARK: - 임시 값
-    let iconName = "02n"
-    let temp = "-8"
-    let discription = "약간 흐림"
-    let windSpeed = "10.3"
-    let humidity = "23"
-    
+    @StateObject var viewModel = WeatherViewModel()    
     @State private var showLocationSheet = false
     
     var body: some View {
