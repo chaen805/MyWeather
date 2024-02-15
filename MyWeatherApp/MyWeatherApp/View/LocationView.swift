@@ -27,9 +27,6 @@ struct LocationView: View {
                         .pickerStyle(.menu)
                     }
                     .listRowBackground(Color.clear)
-                    .onChange(of: viewModel.tempSido) { oldValue, newValue in
-                        viewModel.selectFirstCity(sido: newValue)
-                    }
                     
                     HStack {
                         Text("시 / 군 / 구")

@@ -33,7 +33,11 @@ class WeatherViewModel: ObservableObject {
     @Published var weatherInformation: WeatherInformation?
     
     @Published var showLocationSheet: Bool = false
-    @Published var tempSido: String = ""
+    @Published var tempSido: String = "" {
+        didSet {
+            selectFirstCity(sido: tempSido)
+        }
+    }
     @Published var tempCity = City(sigungu: "", lon: "", lat: "")
     
     private var cancellables = Set<AnyCancellable>()
@@ -82,7 +86,7 @@ class WeatherViewModel: ObservableObject {
         closeLocationSheet()
     }
     
-    func selectFirstCity(sido: String) {
+    private func selectFirstCity(sido: String) {
         self.tempCity = cityList[sido]![0]
     }
     
