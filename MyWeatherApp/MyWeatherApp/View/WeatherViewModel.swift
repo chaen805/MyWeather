@@ -33,7 +33,11 @@ class WeatherViewModel: ObservableObject {
     @Published var weatherInformation: WeatherInformation?
     
     @Published var showLocationSheet: Bool = false
-    @Published var tempSido: String = ""
+    @Published var tempSido: String = "" {
+        didSet {
+            selectFirstCity(sido: tempSido)
+        }
+    }
     @Published var tempCity = City(sigungu: "", lon: "", lat: "")
     
     private var cancellables = Set<AnyCancellable>()
@@ -82,7 +86,7 @@ class WeatherViewModel: ObservableObject {
         closeLocationSheet()
     }
     
-    func selectFirstCity(sido: String) {
+    private func selectFirstCity(sido: String) {
         self.tempCity = cityList[sido]![0]
     }
     
@@ -95,11 +99,7 @@ class WeatherViewModel: ObservableObject {
             
             if let dataArr = encodedData?.components(separatedBy: "\n").map({ $0.trimmingCharacters(in: .newlines).components(separatedBy: ",") }) {
                 for arr in dataArr {
-                    if self.cityList[arr[0]] == nil {    // 키 값이 존재하지 않으면
-                        self.cityList[arr[0]] = [City(sigungu: arr[1], lon: arr[2], lat: arr[3])]
-                    } else {    // 이미 키 값이 존재하면
-                        self.cityList[arr[0]]?.append(City(sigungu: arr[1], lon: arr[2], lat: arr[3]))
-                    }
+                    self.cityList[arr[0], default: []].append(City(sigungu: arr[1], lon: arr[2], lat: arr[3]))
                 }
             }
         } catch {

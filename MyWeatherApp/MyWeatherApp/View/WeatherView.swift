@@ -53,29 +53,7 @@ struct WeatherView: View {
                         .padding(.horizontal, 60)
                         .padding(.bottom, 36)
                     } else {
-                        Image(systemName: "network.slash")
-                            .resizable()
-                            .renderingMode(.template)
-                            .scaledToFit()
-                            .padding(.horizontal, 76)
-                        
-                        Text("-")
-                            .font(.temperature)
-                        
-                        Text("네트워크 오류")
-                        
-                        Spacer()
-                            .frame(maxHeight: 40)
-                        
-                        HStack {
-                            AdditionalInformationView(type: .wind, value: "-")
-                            
-                            Spacer()
-                            
-                            AdditionalInformationView(type: .humidity, value: "-")
-                        }
-                        .padding(.horizontal, 60)
-                        .padding(.bottom, 36)
+                        NetworkErrorView()
                     }
                 }
             }
@@ -98,6 +76,34 @@ struct WeatherView: View {
                     .presentationCornerRadius(36)
             }
         }
+    }
+}
+
+private struct NetworkErrorView: View {
+    fileprivate var body: some View {
+        Image(systemName: "network.slash")
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .padding(.horizontal, 76)
+        
+        Text("-")
+            .font(.temperature)
+        
+        Text("네트워크 오류")
+        
+        Spacer()
+            .frame(maxHeight: 40)
+        
+        HStack {
+            AdditionalInformationView(type: .wind, value: "-")
+            
+            Spacer()
+            
+            AdditionalInformationView(type: .humidity, value: "-")
+        }
+        .padding(.horizontal, 60)
+        .padding(.bottom, 36)
     }
 }
 
